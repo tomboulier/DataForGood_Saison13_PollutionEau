@@ -149,7 +149,7 @@ L'option `-s` permet d'afficher les prints dans le terminal.
 
 Lancer la commande suivante pour s'assurer que le code satisfait bien tous les pre commit avant de créer votre pull request
 
-```ba*sh
+```bash
 pre-commit run --all-files
 ```
 
