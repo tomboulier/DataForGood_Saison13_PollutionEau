@@ -135,6 +135,14 @@ Les analyses se font via jupyter notebook
 uv run jupyter notebook
 ```
 
+## Tests
+
+Pour lancer les tests, il suffit de lancer la commande suivante à la racine du projet:
+
+```bash
+uv run pytest -s
+```
+
 ## Pre Commit
 
 Lancer la commande suivante pour s'assurer que le code satisfait bien tous les pre commit avant de créer votre pull request
