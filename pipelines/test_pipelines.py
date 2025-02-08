@@ -1,14 +1,19 @@
 import subprocess
-import sys
+
+import pytest
 
 
-def test_build_database():
+@pytest.mark.parametrize("task", ["build_database", "download_database"])
+def test_pipeline_task(task):
     """
-    Test the build_database function.
+    Test the specified pipeline task.
 
-    This function tests the execution of the build_database function from the
-    pipelines/run.py script. It ensures that the function runs without raising any exceptions.
+    This function tests the execution of the specified pipeline task from the
+    pipelines/run.py script. It ensures that the task runs without raising any exceptions.
+
+    Args:
+        task (str): The name of the pipeline task to test.
     """
-    process = subprocess.run(["uv", "run", "pipelines/run.py", "run", "build_database"])
+    process = subprocess.run(["uv", "run", "pipelines/run.py", "run", task])
 
-    assert process.returncode == 0, "build_database script failed"
+    assert process.returncode == 0, f"{task} script failed"
