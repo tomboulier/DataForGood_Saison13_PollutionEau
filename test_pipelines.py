@@ -1,4 +1,7 @@
-from tasks.build_database import execute as build_database
+import os
+import subprocess
+
+print(f"Current working directory: {os.getcwd()}")
 
 
 def test_build_database():
@@ -10,7 +13,7 @@ def test_build_database():
     raising any exceptions.
     """
     try:
-        build_database()
+        subprocess.run(["uv", "run", "pipelines/run.py", "run", "build_database"])
     except Exception as e:
         assert False, e
     assert True
