@@ -1,7 +1,4 @@
-import os
 import subprocess
-
-print(f"Current working directory: {os.getcwd()}")
 
 
 def test_build_database():
