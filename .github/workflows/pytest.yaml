@@ -1,12 +1,9 @@
 name: 🧪 Run Tests
 
 on:
-  push:
-    branches:
-      - '**'
   pull_request:
-    branches:
-      - '**'
+  push:
+    branches: [main]
 
 jobs:
   test:
