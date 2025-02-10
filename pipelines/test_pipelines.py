@@ -3,7 +3,9 @@ import subprocess
 import pytest
 
 
-@pytest.mark.parametrize("task", ["build_database", "download_database"])
+@pytest.mark.parametrize(
+    "task", ["build_database", "download_database", "upload_database"]
+)
 def test_pipeline_task(task):
     """
     Test the specified pipeline task.
@@ -19,7 +21,7 @@ def test_pipeline_task(task):
     # add options
     if task == "build_database":
         commands_list.extend(["--refresh-type", "last"])
-    elif task == "download_database":
+    elif task in ("download_database", "upload_database"):
         commands_list.extend(["--env", "dev"])
 
     process = subprocess.run(commands_list)
