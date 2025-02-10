@@ -1,9 +1,11 @@
-name: 🧪 Run Tests
+name: pipelines_test
 
 on:
   pull_request:
   push:
     branches: [main]
+    paths:
+      - 'pipelines/**'
 
 env:
   ENV: prod
