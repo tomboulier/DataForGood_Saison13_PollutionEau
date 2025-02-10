@@ -14,6 +14,14 @@ def test_pipeline_task(task):
     Args:
         task (str): The name of the pipeline task to test.
     """
-    process = subprocess.run(["uv", "run", "pipelines/run.py", "run", task])
+    commands_list = ["uv", "run", "pipelines/run.py", "run", task]
+
+    # add options
+    if task == "build_database":
+        commands_list.extend(["--refresh-type", "last"])
+    elif task == "download_database":
+        commands_list.extend(["--env", "dev"])
+
+    process = subprocess.run(commands_list)
 
     assert process.returncode == 0, f"{task} script failed"
