@@ -1,4 +1,4 @@
-name: pipelines_test
+name: 🧪 Run Tests
 
 on:
   pull_request:
