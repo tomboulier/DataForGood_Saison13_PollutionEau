@@ -137,6 +137,7 @@ Le plus simple est de la télécharger via https (pas besoin de credentials):
 ```bash
 uv run pipelines/run.py run download_database_https --env prod
 ```
+Vous pouvez aussi simplement telecharger la donnée en cliquant sur le lien de telechargement suivant:  [duckdb prod database](https://pollution-eau-s3.s3.fr-par.scw.cloud/dev/database/data.duckdb)
 
 #### via S3 (Scaleway)
 Il faut bien configurer ses credentials Scaleway et son env via le fichier .env.
