@@ -223,7 +223,7 @@ def execute(
     """
     Execute the EDC dataset processing with specified parameters.
 
-    :param refresh_type: Type of refresh to perform ("all", last", or "custom")
+    :param refresh_type: Type of refresh to perform ("all", "last", or "custom")
     :param custom_years: List of years to process when refresh_type is "custom"
     :param drop_tables: Whether to drop edc tables in the database before data insertion.
     """
