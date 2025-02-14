@@ -19,6 +19,22 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
+    - name: Check if SCW_ACCESS_KEY and SCW_SECRET_KEY are set
+      run: |
+        if [ -z "$SCW_ACCESS_KEY" ]; then
+          echo "SCW_ACCESS_KEY is not set!"
+          exit 1
+        else
+          echo "SCW_ACCESS_KEY is set."
+        fi
+
+        if [ -z "$SCW_SECRET_KEY" ]; then
+          echo "SCW_SECRET_KEY is not set!"
+          exit 1
+        else
+          echo "SCW_SECRET_KEY is set."
+        fi
+
     - name: Install a specific version of uv
       uses: astral-sh/setup-uv@v5
       with:
