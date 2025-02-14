@@ -128,8 +128,6 @@ uv run pipelines/run.py run build_database --refresh-type last --drop-tables
 
 
 ### Comment télécharger la database depuis S3
-uiiooi
-
 Des versions de dev et de production de la db sont à disposition sur le storage object.
 Les deux façons de télécharger les databases suivantes existent.
 
