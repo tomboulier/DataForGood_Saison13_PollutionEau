@@ -13,6 +13,7 @@ env:
 
 jobs:
   test:
+    environment: continuous-integration
     runs-on: ubuntu-latest
 
     steps:
