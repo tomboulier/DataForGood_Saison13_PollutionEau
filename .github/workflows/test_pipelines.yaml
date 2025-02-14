@@ -23,17 +23,17 @@ jobs:
     - name: Check if SCW_ACCESS_KEY and SCW_SECRET_KEY are set
       run: |
         if [ -z "$SCW_ACCESS_KEY" ]; then
-          echo "SCW_ACCESS_KEY is not set!"
+          echo "SCW_ACCESS_KEY is not set, cannot run tests without access key"
           exit 1
         else
-          echo "SCW_ACCESS_KEY is set."
+          echo "SCW_ACCESS_KEY is properly set."
         fi
 
         if [ -z "$SCW_SECRET_KEY" ]; then
-          echo "SCW_SECRET_KEY is not set!"
+          echo "SCW_SECRET_KEY is not set, cannot run tests without secret key"
           exit 1
         else
-          echo "SCW_SECRET_KEY is set."
+          echo "SCW_SECRET_KEY is properly set."
         fi
 
     - name: Install a specific version of uv
