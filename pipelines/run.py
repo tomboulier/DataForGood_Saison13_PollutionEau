@@ -102,18 +102,18 @@ def run_build_database(refresh_type, custom_years, drop_tables, check_update):
     help="Environment to download from. It will override environment defined in .env",
 )
 @click.option(
-    "--http",
+    "--use-http",
     is_flag=True,
     default=False,
     help="Download database via HTTP (instead of HTTPS).",
 )
-def run_download_database(env, http):
+def run_download_database(env, use_http):
     """Download database from S3."""
     if env is not None:
         os.environ["ENV"] = env
     env = get_environment(default="prod")
     logger.info(f"Running on env {env}")
-    logger.info(f"Downloading database via HTTP: {http}")
+    logger.info(f"Downloading database via HTTP: {use_http}")
     module = importlib.import_module("tasks.download_database")
     task_func = getattr(module, "execute")
     task_func(env)
