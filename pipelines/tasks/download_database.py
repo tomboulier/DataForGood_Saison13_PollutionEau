@@ -39,7 +39,7 @@ class HTTPDownloadStrategy(DatabaseDownloadStrategy):
         :param local_path: The path where the database should be saved.
         :return: None
         """
-        logger.info(f"Downloading database from S3 for environment {env}")
+        logger.info(f"Downloading database from S3 in environment {env}")
         s3 = ObjectStorageClient()
         remote_s3_path = get_s3_path(env)
         s3.download_object(remote_s3_path, local_path)
