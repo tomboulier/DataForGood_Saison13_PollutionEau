@@ -116,7 +116,7 @@ def run_download_database(env, use_http):
     logger.info(f"Downloading database via HTTP: {use_http}")
     module = importlib.import_module("tasks.download_database")
     task_func = getattr(module, "execute")
-    task_func(env)
+    task_func(env, use_http)
 
 
 @run.command("download_database_https")
