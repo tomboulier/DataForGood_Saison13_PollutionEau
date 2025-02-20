@@ -1,0 +1,18 @@
+version: 2
+
+seeds:
+  - name: mapping_categories
+    description: "Table de mapping des catégories de paramètres de qualité de l'eau."
+    columns:
+      - name: cdparametresiseeaux
+        description: "Code SISE-Eaux du paramètre"
+      - name: cdparametre
+        description: "Code SANDRE du paramètre"
+      - name: libmajparametre
+        description: "Nom du paramètre en majuscule"
+      - name: libminparametre
+        description: "Nom du paramètre en minuscule"
+      - name: casparam
+        description: "Code CAS de la substance chimique"
+      - name: categorie
+        description: "Catégorie du paramètre (pesticides, nitrites, etc.)"
