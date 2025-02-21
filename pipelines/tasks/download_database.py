@@ -75,24 +75,27 @@ class DatabaseDownloader:
     Manages the database download process by selecting the appropriate strategy.
     """
 
-    def __init__(self, strategy: DatabaseDownloadStrategy):
+    def __init__(self, strategy: DatabaseDownloadStrategy, env: str):
         """
         Initializes the database downloader with a specific strategy.
 
         :param strategy: The strategy to use for downloading the database.
+        :param env: The environment to download from ("dev" or "prod").
         :return: None
         """
         self.strategy = strategy
         self.local_db_path = DUCKDB_FILE
+        if env not in ("dev", "prod"):
+            raise ValueError("'env' must be 'dev' or 'prod'")
+        self.env = env
 
-    def download(self, env: str):
+    def download(self):
         """
         Executes the download process.
 
-        :param env: The environment to download from ("dev" or "prod").
         :return: None
         """
-        self.strategy.download(env, self.local_db_path)
+        self.strategy.download(self.env, self.local_db_path)
 
 
 def execute(env: str, use_http: bool = False):
@@ -104,5 +107,5 @@ def execute(env: str, use_http: bool = False):
     :return: None
     """
     strategy = HTTPDownloadStrategy() if use_http else HTTPSDownloadStrategy()
-    downloader = DatabaseDownloader(strategy)
-    downloader.download(env)
+    downloader = DatabaseDownloader(strategy, env)
+    downloader.download()
