@@ -109,7 +109,7 @@ def run_build_database(refresh_type, custom_years, drop_tables, check_update):
 )
 def run_download_database(env, use_boto3):
     """Download database
-    
+
     :param env: The environment to download from ("dev" or "prod").
     :param use_boto3: Whether to download via Boto3 instead of direct download via HTTPS. Default is False.
     :return: None
