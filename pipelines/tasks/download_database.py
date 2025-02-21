@@ -83,6 +83,7 @@ class DatabaseDownloader:
         :return: None
         """
         self.strategy = strategy
+        self.local_db_path = DUCKDB_FILE
 
     def download(self, env: str):
         """
@@ -91,8 +92,7 @@ class DatabaseDownloader:
         :param env: The environment to download from ("dev" or "prod").
         :return: None
         """
-        local_db_path = DUCKDB_FILE
-        self.strategy.download(env, local_db_path)
+        self.strategy.download(env, self.local_db_path)
 
 
 def execute(env: str, use_http: bool = False):
