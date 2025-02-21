@@ -29,7 +29,7 @@ class DatabaseDownloadStrategy(ABC):
         pass
 
 
-class HTTPDownloadStrategy(DatabaseDownloadStrategy):
+class Boto3DownloadStrategy(DatabaseDownloadStrategy):
     """
     Strategy for downloading the database from an S3 storage,
     using HTTP instead of HTTPS.
@@ -106,6 +106,6 @@ def execute(env: str, use_boto3: bool = False):
     :param use_boto3: Whether to download via Boto3 instead of direct download via HTTPS. Default is False.
     :return: None
     """
-    strategy = HTTPDownloadStrategy() if use_boto3 else HTTPSDownloadStrategy()
+    strategy = Boto3DownloadStrategy() if use_boto3 else HTTPSDownloadStrategy()
     downloader = DatabaseDownloader(strategy, env)
     downloader.download()
