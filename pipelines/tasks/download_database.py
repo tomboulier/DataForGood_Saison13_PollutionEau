@@ -13,6 +13,10 @@ class DatabaseDownloadStrategy(ABC):
     Interface for database download strategies.
     """
 
+    def __init__(self):
+        super().__init__()
+        self.s3 = ObjectStorageClient()
+
     @abstractmethod
     def download(self, env: str, local_path: str):
         """
@@ -40,11 +44,10 @@ class HTTPDownloadStrategy(DatabaseDownloadStrategy):
         :return: None
         """
         logger.info(f"Downloading database from S3 in environment {env}")
-        s3 = ObjectStorageClient()
         remote_s3_path = get_s3_path(env)
-        s3.download_object(remote_s3_path, local_path)
+        self.s3.download_object(remote_s3_path, local_path)
         logger.info(
-            f"✅ Database downloaded from s3://{s3.bucket_name}/{remote_s3_path}"
+            f"✅ Database downloaded from s3://{self.s3.bucket_name}/{remote_s3_path}"
         )
 
 
@@ -62,8 +65,7 @@ class HTTPSDownloadStrategy(DatabaseDownloadStrategy):
         :return: None
         """
         logger.info("Downloading database via HTTPS")
-        s3 = ObjectStorageClient()
-        url = f"https://{s3.bucket_name}.{s3.endpoint_url.split('https://')[1]}/{get_s3_path(env)}"
+        url = f"https://{self.s3.bucket_name}.{self.s3.endpoint_url.split('https://')[1]}/{get_s3_path(env)}"
         download_file_from_https(url=url, filepath=local_path)
         logger.info(f"✅ Database downloaded via HTTPS: {url} -> {local_path}")
 
