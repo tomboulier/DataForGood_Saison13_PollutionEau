@@ -98,14 +98,14 @@ class DatabaseDownloader:
         self.strategy.download(self.env, self.local_db_path)
 
 
-def execute(env: str, use_http: bool = False):
+def execute(env: str, use_boto3: bool = False):
     """
     Executes the database download using the appropriate strategy.
 
     :param env: The environment to download from ("dev" or "prod").
-    :param use_http: Whether to download via HTTPS instead of S3. Default is False.
+    :param use_boto3: Whether to download via Boto3 instead of direct download via HTTPS. Default is False.
     :return: None
     """
-    strategy = HTTPDownloadStrategy() if use_http else HTTPSDownloadStrategy()
+    strategy = HTTPDownloadStrategy() if use_boto3 else HTTPSDownloadStrategy()
     downloader = DatabaseDownloader(strategy, env)
     downloader.download()
