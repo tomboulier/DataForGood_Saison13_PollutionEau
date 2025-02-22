@@ -129,43 +129,42 @@ uv run pipelines/run.py run build_database --refresh-type last --drop-tables
 #### Documentation
 La documentation du projet dbt est disponible sur le lien suivant: [documentation dbt](https://dataforgood.fr/13_pollution_eau/#!/overview)
 
-### Comment télécharger la database depuis S3
-Des versions de dev et de production de la db sont à disposition sur le storage object.
-Les deux façons de télécharger les databases suivantes existent.
+### Comment télécharger la base de données
 
-#### via HTTPS
-Le plus simple est de la télécharger via https (pas besoin de credentials):
-```bash
-uv run pipelines/run.py run download_database_https --env prod
-```
-Vous pouvez aussi simplement telecharger la donnée en cliquant sur le lien de telechargement suivant:  [duckdb prod database](https://pollution-eau-s3.s3.fr-par.scw.cloud/prod/database/data.duckdb)
+#### Via HTTPS
 
-#### via S3 (Scaleway)
-Il faut bien configurer ses credentials Scaleway et son env via le fichier .env.
+Vous pouvez simplement télécharger la base de données en cliquant sur le lien de téléchargement suivant:  https://pollution-eau-s3.s3.fr-par.scw.cloud/prod/database/data.duckdb
 
-
+Vous pouvez également lancer la commande suivante :
 ```bash
 uv run pipelines/run.py run download_database
 ```
+Elle téléchargera la base, et la placera à l'emplacement utilisé par tout le monde (à savoir, `database/data.duckdb`). Un raccourci pour cette commande est accessible en un clic dans la barre des tâches de VS Code (ligne tout en bas) : "Download Dabatase".
 
-### Connection a Scaleway via boto3 pour stockage cloud
+### Depuis Scaleway via [boto3](https://github.com/boto/boto3) pour stockage objet S3
 
-Un utils a été créé dans [storage_client.py](pipelines%2Futils%2Fstorage_client.py) pour faciliter la connection au S3 hébergé sur Scaleway.
+Des versions de développement et de production de la base de données sont à disposition sur le stockage object.
 
-Il faut créer un fichier .env dans le dossier pipelines/config avec les secrets ci dessous dedans pour que la connection fonctionne.
+Un module a été créé dans [storage_client.py](pipelines%2Futils%2Fstorage_client.py) pour faciliter la connection au S3 hébergé sur Scaleway. Il faut bien configurer ses *credentials* Scaleway et son environnement. Pour cela, il faut créer un fichier `.env` dans le dossier [pipelines/config](pipelines%2Fconfig), avec les secrets ci-dessous dedans pour que la connexion fonctionne :
 
 ```text
 SCW_ACCESS_KEY={ACCESS_KEY}
 SCW_SECRET_KEY={SECRET_KEY}
 ```
+où `{ACCESS_KEY}` et `{SECRET_KEY}` sont les *credentials* obtenus via le coffre-fort vaultwarden mis en place (pour cela, il suffit de demander à un chef de projet sur Slack).
 
-Vous trouverez un example avec le fichier [.env.example](pipelines%2Fconfig%2F.env.example)
+Vous trouverez un exemple avec le fichier [.env.example](pipelines%2Fconfig%2F.env.example)
 
-> ⚠ **Attention:** Ne jamais commir les access key et secret key.
+> ⚠ **Attention:** Ne jamais faire de *commit* des *access key* et *secret key*.
 
-Un vaultwarden va être setup pour récupérer les secrets pour les personnes qui en ont besoin
+Une fois les credentials obtenus et mis dans le fichier `pipelines/config/.env`, vous pouvez alors lancer la commande suivante :
 
-Le notebook [test_storage_utils.ipynb](pipelines%2Fnotebooks%2Ftest_storage_utils.ipynb) montre un example d'utilisation de l'utils pour charger et lire des csv sur le bucket S3 du projet
+```bash
+uv run pipelines/run.py run download_database --use-boto3
+```
+Vous pouvez également spécifier l'option `--env {dev|prod}`.
+
+Le notebook [test_storage_utils.ipynb](pipelines%2Fnotebooks%2Ftest_storage_utils.ipynb) montre un exemple d'utilisation de l'utils pour charger et lire des csv sur le bucket S3 du projet.
 
 ### Data analysis
 
