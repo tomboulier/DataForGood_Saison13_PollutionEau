@@ -82,21 +82,27 @@ Tout le code dans pipelines sera installé en tant que package python automatiqu
 Une fois l'environnement python setup avec uv, vous pouvez lancer data_pipeline/run.py pour remplir la database
 
 Le téléchargement des données peut se faire de plusieurs manières :
-* 1. Téléchargement des données de la dernière année (par défaut)
+1. Téléchargement des données de la dernière année (par défaut)
 ```bash
 uv run pipelines/run.py run build_database --refresh-type last
 ```
 
-* 2. Téléchargement de toutes les données
+2. Téléchargement de toutes les données
 
 ```bash
 uv run pipelines/run.py run build_database --refresh-type all
 ```
 
-* 3. Téléchargement de données d'années spécifiques
+3. Téléchargement de données d'années spécifiques
 ```bash
 uv run pipelines/run.py run build_database --refresh-type custom --custom-years 2018,2024,...
 ```
+
+4. Suppression des tables, puis téléchargement des données de la dernière année
+```bash
+uv run pipelines/run.py run build_database --refresh-type last --drop-tables
+```
+
 ### Création du modèles de données avec dbt
 #### 1. Commandes a exécuter
 La librarie dbt est celle choisie pour une construction rapide et simple de modèles de données optimisé pour l'analytics.
@@ -120,11 +126,6 @@ Les modèles de données sont organisés dans le dossier `dbt_/models`. La struc
 * **models/staging/** : Modèles de données avec des transformation basiques (TRIM, REPLACE, typage, ...). Cette couche est surtout utilisée pour faire un état des données existantes, les documenter et tester la qualité.
 * **models/intermediate/** : Modèles de données avec des transformation plus complexes (GROUP BY, JOIN, WHERE, ...). Cette couche est surtout utile pour faire une jointure entre les différentes tables et faire un premier filtrage des données. Celle-ci est très utile pour de l'analyse de données
 * **models/analytics/** : Modèles de données final, qui est requêter par le site web pour construire les visualisations. Cette donnée est propre et la schématisation des données est optimisée pour le chargement des visualisations.
-
-* 4. Suppression des tables, puis téléchargement des données de la dernière année
-```bash
-uv run pipelines/run.py run build_database --refresh-type last --drop-tables
-```
 
 #### Documentation
 La documentation du projet dbt est disponible sur le lien suivant: [documentation dbt](https://dataforgood.fr/13_pollution_eau/#!/overview)
@@ -168,7 +169,7 @@ Le notebook [test_storage_utils.ipynb](pipelines%2Fnotebooks%2Ftest_storage_util
 
 ### Data analysis
 
-Les analyses ce font via jupyter notebook
+Les analyses se font via jupyter notebook
 
 ```bash
 uv run jupyter notebook
