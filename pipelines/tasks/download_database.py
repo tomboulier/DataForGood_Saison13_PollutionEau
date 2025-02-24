@@ -1,3 +1,16 @@
+"""
+Download database.
+
+Args:
+    - env (str): Environment to download from ("dev" or "prod")
+    - use-boto3 (bool) : use boto3 library to download from S3 storage, instead of using public HTTPS URL (default: False)
+
+Examples:
+    - download_database --env prod : Download database from production environment
+    - download_database --env dev  : Download database from development environment
+    - download_database --use-boto3 : Download database from S3 storage
+"""
+
 import logging
 from abc import ABC, abstractmethod
 
